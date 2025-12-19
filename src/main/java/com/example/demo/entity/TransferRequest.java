@@ -23,7 +23,10 @@ public class TransferRequest{
    @JoinColumn(name="target_program_id")
    private Program targetProgram;
    
-   
+   @OneToMany(cascade = CascadeType.ALL)
+   private List<CompletedCourse> completedcourses;
 
+   @Enumerated(EnumType.STRING)
+   private 
 
 }
