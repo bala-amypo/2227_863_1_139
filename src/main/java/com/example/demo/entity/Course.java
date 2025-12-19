@@ -1,8 +1,11 @@
 package com.example.demo.entity;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name=" ")
+@Table(name="courses")
 public class Course{
      
     @Id
@@ -16,5 +19,5 @@ public class Course{
     private String Title;
 
     @Column(nullable=false)
-    private String credits;
+    private Double credits;
 }
