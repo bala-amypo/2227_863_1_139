@@ -1,5 +1,12 @@
 package com.example.demo.entity;
 
+
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "universities")
 public class University{
@@ -9,7 +16,7 @@ public class University{
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         
-        
+        @Column(nullable=false,unique=true)
         private String name;
 
         private String country;
