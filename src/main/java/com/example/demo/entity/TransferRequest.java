@@ -11,7 +11,8 @@ public class TransferRequest{
 
    private String studentId;
 
-   @
-   
+   @ManyToOne
+   @JoinColumn(name=)
+   private 
 
 }
