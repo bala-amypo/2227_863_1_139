@@ -6,6 +6,8 @@ package com.example.demo.entity;
 public class TransferRequest{
 
    @Id
-   @GeneratedValue
+   @GeneratedValue(strategy=GenerationType.IDENTITY)
    private Long id;   
+
+   @Column
 }
