@@ -12,12 +12,10 @@ public class Course{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false,unique=true)
+    @Column(unique=true)
     private String code;
 
-    @Column(nullable=false)
     private String Title;
-
-    @Column(nullable=false)
+    
     private Double credits;
 }
