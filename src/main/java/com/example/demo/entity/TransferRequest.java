@@ -27,6 +27,6 @@ public class TransferRequest{
    private List<CompletedCourse> completedcourses;
 
    @Enumerated(EnumType.STRING)
-   private 
+   private TransferStatus status;
 
 }
