@@ -1,5 +1,7 @@
 
+package com.example.demo.entity;
 
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="users")
@@ -40,5 +42,10 @@ public class User{
     public void setPassword(String password){
         this.password=password;
     }
-    
+    public Role getRole(){
+        return role;
+    }
+    public void setRole(){
+        this.role=role;
+    }
 }
