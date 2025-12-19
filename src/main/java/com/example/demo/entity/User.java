@@ -21,5 +21,7 @@ public class User{
     private Role role;
 
 
-    @Ennumerated
+    @Ennumerated(EnumType.String)
+    @Column(nullable = false)
+    
 }
