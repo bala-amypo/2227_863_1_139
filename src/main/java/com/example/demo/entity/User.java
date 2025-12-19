@@ -12,19 +12,14 @@ public class User{
     private Long id;
     
 
-    @Column(nullable = false,unique=true)
+    @Column(unique=true)
     private String email;
 
-    @Column(nullable = false)
     private String password;
-   
 
-    @Column(nullable = false)
     private Role role;
 
-
     @Ennumerated(EnumType.String)
-    @Column(nullable = false)
     private Role role;
 
     public Long getId(){
