@@ -1,6 +1,10 @@
 package com.example.demo.entity;
 
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "transfer_requests")
 public class TransferRequest{
@@ -12,7 +16,14 @@ public class TransferRequest{
    private String studentId;
 
    @ManyToOne
-   @JoinColumn(name=)
-   private 
+   @JoinColumn(name="source_program_id")
+   private Program sourceProgram;
+
+   @ManyToOne
+   @JoinColumn(name="target_program_id")
+   private Program targetProgram;
+   
+   
+
 
 }
