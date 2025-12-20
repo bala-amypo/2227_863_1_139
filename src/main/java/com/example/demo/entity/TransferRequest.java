@@ -28,10 +28,11 @@ public class TransferRequest{
    @Enumerated(EnumType.STRING)
    private TransferStatus status;
    
-   public TransferRequest(String studentId,Program sourceProgram,Program targetProgram,List<CompletedCourse> completedcourses ){
+   public TransferRequest(String studentId,Program sourceProgram,Program targetProgram,List<CompletedCourse> completedcourses,TransferStatus status ){
       this.studentId=studentId;
       this.sourceProgram=sourceProgram;
       this.targetProgram=targetProgram;
-      this.
+      this.completedcourses=completedcourses;
+      this.TransferStatus status;
    }
 }
