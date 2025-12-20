@@ -43,4 +43,11 @@ public class User{
     public void setRole(){
         this.role=role;
     }
+    public User(){
+
+    }
+
+    public User(String email,String password,Role role){
+        
+    }
 }
