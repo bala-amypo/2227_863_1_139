@@ -3,7 +3,6 @@ package com.example.demo.entity;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name="courses")
 public class Course{
@@ -18,4 +17,9 @@ public class Course{
     private String Title;
     
     private Double credits;
+
+
+    public Course(String code,String Title,Double credits){
+        this.
+    }
 }
