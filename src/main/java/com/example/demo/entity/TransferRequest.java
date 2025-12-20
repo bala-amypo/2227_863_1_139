@@ -4,7 +4,6 @@ package com.example.demo.entity;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "transfer_requests")
 public class TransferRequest{
@@ -28,5 +27,11 @@ public class TransferRequest{
 
    @Enumerated(EnumType.STRING)
    private TransferStatus status;
-
+   
+   public TransferRequest(String studentId,Program sourceProgram,Program targetProgram,List<CompletedCourse> completedcourses ){
+      this.studentId=studentId;
+      this.sourceProgram=sourceProgram;
+      this.targetProgram=targetProgram;
+      this.
+   }
 }
