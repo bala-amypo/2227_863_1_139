@@ -17,8 +17,6 @@ public class User{
 
     private String password;
 
-    private Role role;
-
     @Ennumerated(EnumType.String)
     private Role role;
 
@@ -48,6 +46,8 @@ public class User{
     }
 
     public User(String email,String password,Role role){
-        
+           this.email=email;
+           this.password;
+           this.role=role;   
     }
 }

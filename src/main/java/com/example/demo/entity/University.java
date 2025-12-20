@@ -6,7 +6,6 @@ package com.example.demo.entity;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "universities")
 public class University{
@@ -19,5 +18,10 @@ public class University{
         private String name;
         
         private String country;
+        
 
+        public University(String name,String country){
+                this.name=name;
+                this.country=country;
+        }
 }
