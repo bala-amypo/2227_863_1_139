@@ -1,5 +1,11 @@
 package com.example.demo.entity;
 
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,12 +20,14 @@ public class Course{
     @Column(unique=true)
     private String code;
 
-    private String Title;
+    private String title;
     
     private Double credits;
 
 
-    public Course(String code,String Title,Double credits){
-        this.
+    public Course(String code,String title,Double credits){
+        this.code=code;
+        this.title=title;
+        this.credits=credits;
     }
 }
