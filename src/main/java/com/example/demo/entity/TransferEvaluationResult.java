@@ -1,59 +1,80 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "transfer_evaluation_results")
 public class TransferEvaluationResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "transfer_request_id")
-    private TransferRequest transferRequest;
+    @ManyToOne
+    private Course sourceCourse;
 
-    private Double totalTransferableCredits;
-    private String remarks;
+    @ManyToOne
+    private Course targetCourse;
 
-    public TransferEvaluationResult() {
+    private Double overlapPercentage;
+    private Integer creditHourDifference;
+    private Boolean isEligibleForTransfer;
+    private LocalDateTime evaluatedAt;
+    private String notes;
+
+    public TransferEvaluationResult() {}
+
+    public TransferEvaluationResult(Course sourceCourse, Course targetCourse,
+                                    Double overlapPercentage, Integer creditHourDifference,
+                                    Boolean isEligibleForTransfer, String notes) {
+        this.sourceCourse = sourceCourse;
+        this.targetCourse = targetCourse;
+        this.overlapPercentage = overlapPercentage;
+        this.creditHourDifference = creditHourDifference;
+        this.isEligibleForTransfer = isEligibleForTransfer;
+        this.notes = notes;
+        this.evaluatedAt = LocalDateTime.now();
     }
 
-    public TransferEvaluationResult(
-            TransferRequest transferRequest,
-            Double totalTransferableCredits,
-            String remarks) {
-
-        this.transferRequest = transferRequest;
-        this.totalTransferableCredits = totalTransferableCredits;
-        this.remarks = remarks;
+    @PrePersist
+    public void onCreate() {
+        evaluatedAt = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Course getSourceCourse() { return sourceCourse; }
+    public void setSourceCourse(Course sourceCourse) {
+        this.sourceCourse = sourceCourse;
     }
 
-    public TransferRequest getTransferRequest() {
-        return transferRequest;
+    public Course getTargetCourse() { return targetCourse; }
+    public void setTargetCourse(Course targetCourse) {
+        this.targetCourse = targetCourse;
     }
 
-    public void setTransferRequest(TransferRequest transferRequest) {
-        this.transferRequest = transferRequest;
+    public Double getOverlapPercentage() { return overlapPercentage; }
+    public void setOverlapPercentage(Double overlapPercentage) {
+        this.overlapPercentage = overlapPercentage;
     }
 
-    public Double getTotalTransferableCredits() {
-        return totalTransferableCredits;
+    public Integer getCreditHourDifference() { return creditHourDifference; }
+    public void setCreditHourDifference(Integer creditHourDifference) {
+        this.creditHourDifference = creditHourDifference;
     }
 
-    public void setTotalTransferableCredits(Double totalTransferableCredits) {
-        this.totalTransferableCredits = totalTransferableCredits;
+    public Boolean getIsEligibleForTransfer() {
+        return isEligibleForTransfer;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public void setIsEligibleForTransfer(Boolean eligible) {
+        isEligibleForTransfer = eligible;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
+    public LocalDateTime getEvaluatedAt() { return evaluatedAt; }
+
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
 }
