@@ -1,13 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.Course;
+import com.example.demo.entity.University;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    Optional<Course> findByCodeIgnoreCase(String code);
+    List<Course> findByUniversityId(Long universityId);
 
-    boolean existsByCodeIgnoreCase(String code);
+    List<Course> findByUniversity(University university);
 }
