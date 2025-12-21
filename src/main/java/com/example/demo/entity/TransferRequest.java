@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,6 +38,6 @@ public class TransferRequest{
       this.sourceProgram=sourceProgram;
       this.targetProgram=targetProgram;
       this.completedcourses=completedcourses;
-      this.TransferStatus status;
+      this.status=status;
    }
 }

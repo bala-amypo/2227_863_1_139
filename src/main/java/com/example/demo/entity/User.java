@@ -1,55 +1,58 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Table(name="users")
-public class User{
-    
+@Table(name = "users")
+public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
 
     private String password;
 
-    @Ennumerated(EnumType.String)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Long getId(){
+
+    public Long getId() {
         return id;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
-    public void setEmail(String email){
-        this.email=email;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    public String getPassword(){
+
+    public String getPassword() {
         return password;
     }
-    public void setPassword(String password){
-        this.password=password;
+
+    public void setPassword(String password) {
+        this.password = password;
     }
-    public Role getRole(){
+
+    public Role getRole() {
         return role;
     }
-    public void setRole(){
-        this.role=role;
-    }
-    public User(){
 
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public User(String email,String password,Role role){
-           this.email=email;
-           this.password;
-           this.role=role;   
+    public User() {
+    }
+
+    public User(String email, String password, Role role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 }
