@@ -12,8 +12,7 @@ public class ApiExceptionHandler {
     public ResponseEntity<ErrorResponse> handleNotFound(
             ResourceNotFoundException ex) {
 
-        ErrorResponse error = new ErrorResponse(ex.getMessage(),HttpStatus.NOT_FOUND.value()
-        );
+        ErrorResponse error = new ErrorResponse(ex.getMessage(),HttpStatus.NOT_FOUND.value());
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
@@ -22,8 +21,7 @@ public class ApiExceptionHandler {
     public ResponseEntity<ErrorResponse> handleValidation(
             ValidationException ex) {
 
-        ErrorResponse error = new ErrorResponse(ex.getMessage(),HttpStatus.BAD_REQUEST.value()
-        );
+        ErrorResponse error = new ErrorResponse(ex.getMessage(),HttpStatus.BAD_REQUEST.value());
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
@@ -33,8 +31,7 @@ public class ApiExceptionHandler {
 
         ErrorResponse error = new ErrorResponse(
                 "Internal server error",
-                HttpStatus.INTERNAL_SERVER_ERROR.value()
-        );
+                HttpStatus.INTERNAL_SERVER_ERROR.value());
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
