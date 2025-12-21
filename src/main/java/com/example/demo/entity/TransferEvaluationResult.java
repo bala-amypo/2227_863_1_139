@@ -1,15 +1,8 @@
 package com.example.demo.entity;
 
-
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
-@Getter
-@Setter
 public class TransferEvaluationResult {
 
     @Id
@@ -23,9 +16,44 @@ public class TransferEvaluationResult {
     private Double totalTransferableCredits;
     private String remarks;
 
-    public TransferEvaluationResult(TransferRequest transferRequest, Double totalTransferableCredits, String remarks) {
+    public TransferEvaluationResult() {
+    }
+
+    public TransferEvaluationResult(
+            TransferRequest transferRequest,
+            Double totalTransferableCredits,
+            String remarks) {
+
         this.transferRequest = transferRequest;
         this.totalTransferableCredits = totalTransferableCredits;
+        this.remarks = remarks;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public TransferRequest getTransferRequest() {
+        return transferRequest;
+    }
+
+    public void setTransferRequest(TransferRequest transferRequest) {
+        this.transferRequest = transferRequest;
+    }
+
+    public Double getTotalTransferableCredits() {
+        return totalTransferableCredits;
+    }
+
+    public void setTotalTransferableCredits(Double totalTransferableCredits) {
+        this.totalTransferableCredits = totalTransferableCredits;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 }
