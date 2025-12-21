@@ -41,4 +41,26 @@ public class ValidationException extends RuntimeException {
         super(message);
     }
 }
-** 
+** security 
+custom 
+package com.example.demo.security;
+
+public class CustomUserDetailsService {
+    
+}
+%%
+jwt 
+package com.example.demo.security;
+
+public class JwtAuthenticationFilter{
+
+
+}
+
+))
+jwt token 
+package com.example.demo.security;
+
+public class JwtTokenProvider{
+    
+}
