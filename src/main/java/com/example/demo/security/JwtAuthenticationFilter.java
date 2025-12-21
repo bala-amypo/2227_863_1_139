@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-public class JwtAuthe{
+public class JwtAuthenticationFilter{
 
 
 }
