@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String email, String password) {
 
-        User user = userRepository.findByEmailIgnoreCase(email).orElseThrow(() ->new ResourceNotFoundException("User not found"));
+        User user = userRepository.findByEmailIgnoreCase(email).orElseThrow(()->new ResourceNotFoundException("User not found"));
 
         if (!user.getPassword().equals(password)) {
             throw new ValidationException("Invalid password");
@@ -58,8 +58,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
 
-        return userRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("User not found"));
+        return userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
     }
 }
