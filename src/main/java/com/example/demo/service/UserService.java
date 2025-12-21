@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UserService {
 
-    User createUser(User user);
-
     User registerUser(User user);
+
+    User findByEmail(String email);
 
     User login(String email, String password);
 

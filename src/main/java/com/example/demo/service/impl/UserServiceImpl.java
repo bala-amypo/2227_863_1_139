@@ -19,34 +19,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) {
-
+    public User registerUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new ValidationException("Email already exists");
         }
-
         return userRepository.save(user);
     }
 
     @Override
-    public User registerUser(User user) {
-
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new ValidationException("Email already exists");
-        }
-
-        return userRepository.save(user);
+    public User findByEmail(String email) {
+        return userRepository.findByEmailIgnoreCase(email)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
     }
 
     @Override
     public User login(String email, String password) {
-
-        User user = userRepository.findByEmailIgnoreCase(email).orElseThrow(()->new ResourceNotFoundException("User not found"));
-
+        User user = findByEmail(email);
         if (!user.getPassword().equals(password)) {
             throw new ValidationException("Invalid password");
         }
-
         return user;
     }
 
@@ -57,7 +49,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long id) {
-
-        return userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
+        return userRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
     }
 }
