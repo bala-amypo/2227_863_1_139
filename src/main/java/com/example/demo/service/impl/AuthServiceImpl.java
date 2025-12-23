@@ -1,29 +1,37 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.entity.User;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Service
+import java.util.Set;
+
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
-    private UserRepository repo;
+    UserRepository userRepo;
+    JwtTokenProvider jwtTokenProvider;
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
-    public User register(User user) {
-        repo.findByEmail(user.getEmail()).ifPresent(u -> {
-            throw new IllegalArgumentException("User already exists");
-        });
-        return repo.save(user);
-    }
+    public AuthResponse login(AuthRequest request) {
 
-    @Override
-    public User login(User user) {
-        return repo.findByEmail(user.getEmail())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = userRepo.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+
+        if (!encoder.matches(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid credentials");
+        }
+
+        String token = jwtTokenProvider.createToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRoles()
+        );
+
+        return new AuthResponse(token, user.getEmail(), user.getRoles().iterator().next());
     }
 }
