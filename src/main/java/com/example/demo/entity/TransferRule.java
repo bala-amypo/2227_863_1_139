@@ -19,7 +19,7 @@ public class TransferRule {
     private University targetUniversity;
 
     private Double minimumOverlapPercentage;
-    private Integer creditHourTolerance;
+    private Integer creditHourTolerance = 0;
     private Boolean active = true;
 
     public TransferRule() {}
@@ -29,19 +29,30 @@ public class TransferRule {
         this.sourceUniversity = sourceUniversity;
         this.targetUniversity = targetUniversity;
         this.minimumOverlapPercentage = minimumOverlapPercentage;
-        this.creditHourTolerance = creditHourTolerance;
+        this.creditHourTolerance = creditHourTolerance == null ? 0 : creditHourTolerance;
         this.active = true;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public University getSourceUniversity() { return sourceUniversity; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public University getSourceUniversity() {
+        return sourceUniversity;
+    }
+
     public void setSourceUniversity(University sourceUniversity) {
         this.sourceUniversity = sourceUniversity;
     }
 
-    public University getTargetUniversity() { return targetUniversity; }
+    public University getTargetUniversity() {
+        return targetUniversity;
+    }
+
     public void setTargetUniversity(University targetUniversity) {
         this.targetUniversity = targetUniversity;
     }
@@ -54,11 +65,23 @@ public class TransferRule {
         this.minimumOverlapPercentage = minimumOverlapPercentage;
     }
 
-    public Integer getCreditHourTolerance() { return creditHourTolerance; }
-    public void setCreditHourTolerance(Integer creditHourTolerance) {
-        this.creditHourTolerance = creditHourTolerance;
+    public Integer getCreditHourTolerance() {
+        return creditHourTolerance;
     }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public void setCreditHourTolerance(Integer creditHourTolerance) {
+        this.creditHourTolerance = creditHourTolerance == null ? 0 : creditHourTolerance;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active != null && active;
+    }
 }
