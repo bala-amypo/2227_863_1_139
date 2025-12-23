@@ -1,6 +1,8 @@
 package com.example.demo.security;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
@@ -8,13 +10,14 @@ import java.security.Key;
 import java.util.Date;
 import java.util.Set;
 
-@Component   
+@Component
 public class JwtTokenProvider {
 
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long validityInMs = 3600000;
+    private final long validityInMs = 60 * 60 * 1000;
 
     public String createToken(Long userId, String email, Set<String> roles) {
+
         Claims claims = Jwts.claims().setSubject(email);
         claims.put("userId", userId);
         claims.put("roles", roles);
@@ -32,7 +35,10 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;
