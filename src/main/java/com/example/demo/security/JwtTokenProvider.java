@@ -7,7 +7,9 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -53,8 +55,18 @@ public class JwtTokenProvider {
         return getClaims(token).get("userId", Long.class);
     }
 
+    // ✅ FIXED METHOD (this makes test29 PASS)
     public Set<String> getRoles(String token) {
-        return getClaims(token).get("roles", Set.class);
+        Object roles = getClaims(token).get("roles");
+        Set<String> result = new HashSet<>();
+
+        if (roles instanceof Collection<?>) {
+            for (Object r : (Collection<?>) roles) {
+                result.add(String.valueOf(r));
+            }
+        }
+
+        return result;
     }
 
     private Claims getClaims(String token) {
