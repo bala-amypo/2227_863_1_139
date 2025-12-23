@@ -2,41 +2,44 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.University;
 import com.example.demo.service.UniversityService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/universities")
+@Tag(name = "University")
 public class UniversityController {
 
-    @Autowired
-    private UniversityService service;
+    private final UniversityService service;
+
+    public UniversityController(UniversityService service) {
+        this.service = service;
+    }
 
     @PostMapping
-    public University createUniversity(@RequestBody University univ) {
-        return service.createUniversity(univ);
+    public University create(@RequestBody University u) {
+        return service.createUniversity(u);
     }
 
     @PutMapping("/{id}")
-    public University updateUniversity(@PathVariable Long id,
-                                       @RequestBody University univ) {
-        return service.updateUniversity(id, univ);
+    public University update(@PathVariable Long id, @RequestBody University u) {
+        return service.updateUniversity(id, u);
     }
 
     @GetMapping("/{id}")
-    public University getUniversityById(@PathVariable Long id) {
+    public University getById(@PathVariable Long id) {
         return service.getUniversityById(id);
     }
 
     @GetMapping
-    public List<University> getAllUniversities() {
+    public List<University> getAll() {
         return service.getAllUniversities();
     }
 
-    @PutMapping("/{id}/deactivate")
-    public void deactivateUniversity(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public void deactivate(@PathVariable Long id) {
         service.deactivateUniversity(id);
     }
 }
