@@ -1,44 +1,61 @@
 package com.example.demo.security;
 
-import java.util.Base64;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Arrays;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
 
+import java.security.Key;
+import java.util.Date;
+import java.util.Set;
+
+@Component   
 public class JwtTokenProvider {
 
+    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final long validityInMs = 3600000;
+
     public String createToken(Long userId, String email, Set<String> roles) {
+        Claims claims = Jwts.claims().setSubject(email);
+        claims.put("userId", userId);
+        claims.put("roles", roles);
 
-        String payload =
-                userId + "|" +
-                email + "|" +
-                String.join(",", roles);
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + validityInMs);
 
-        return Base64.getEncoder().encodeToString(payload.getBytes());
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .signWith(key)
+                .compact();
     }
 
     public boolean validateToken(String token) {
         try {
-            Base64.getDecoder().decode(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    public Long getUserId(String token) {
-        String decoded = new String(Base64.getDecoder().decode(token));
-        return Long.parseLong(decoded.split("\\|")[0]);
+    public String getEmail(String token) {
+        return getClaims(token).getSubject();
     }
 
-    public String getEmail(String token) {
-        String decoded = new String(Base64.getDecoder().decode(token));
-        return decoded.split("\\|")[1];
+    public Long getUserId(String token) {
+        return getClaims(token).get("userId", Long.class);
     }
 
     public Set<String> getRoles(String token) {
-        String decoded = new String(Base64.getDecoder().decode(token));
-        String[] roles = decoded.split("\\|")[2].split(",");
-        return new HashSet<>(Arrays.asList(roles));
+        return getClaims(token).get("roles", Set.class);
+    }
+
+    private Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
