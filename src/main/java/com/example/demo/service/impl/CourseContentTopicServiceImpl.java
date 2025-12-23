@@ -5,9 +5,10 @@ import com.example.demo.entity.CourseContentTopic;
 import com.example.demo.repository.CourseContentTopicRepository;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.service.CourseContentTopicService;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class CourseContentTopicServiceImpl implements CourseContentTopicService {
 
     CourseContentTopicRepository repo;
