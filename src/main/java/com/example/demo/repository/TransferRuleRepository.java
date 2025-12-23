@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TransferRuleRepository extends JpaRepository<TransferRule, Long> {
 
-    List<TransferRule> findBySourceUniversityIdAndTargetUniversityId(
+    List<TransferRule> findBySourceUniversityIdAndTargetUniversityIdAndActiveTrue(
             Long sourceUniversityId,
             Long targetUniversityId
     );

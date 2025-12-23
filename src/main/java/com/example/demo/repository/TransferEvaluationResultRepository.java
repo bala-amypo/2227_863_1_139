@@ -8,8 +8,5 @@ import java.util.List;
 public interface TransferEvaluationResultRepository
         extends JpaRepository<TransferEvaluationResult, Long> {
 
-    List<TransferEvaluationResult> findBySourceCourseIdOrTargetCourseId(
-            Long sourceCourseId,
-            Long targetCourseId
-    );
+    List<TransferEvaluationResult> findBySourceCourseId(Long sourceCourseId);
 }
