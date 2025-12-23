@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Set;
 
+@Service
 public class AuthServiceImpl implements AuthService {
 
     UserRepository userRepo;
