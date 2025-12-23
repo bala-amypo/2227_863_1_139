@@ -24,13 +24,17 @@ public class OpenApiConfig {
                 .servers(List.of(
                         new Server().url("https://9118.32procr.amypo.ai/")
                 ))
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                .components(new Components()
-                        .addSecuritySchemes("bearerAuth",
+                .addSecurityItem(
+                        new SecurityRequirement().addList("bearerAuth")
+                )
+                .components(
+                        new Components().addSecuritySchemes(
+                                "bearerAuth",
                                 new SecurityScheme()
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
                                         .bearerFormat("JWT")
-                        ));
+                        )
+                );
     }
 }
