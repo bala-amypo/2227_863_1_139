@@ -40,6 +40,10 @@ public class CourseMapping {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Course getSourceCourse() {
         return sourceCourse;
     }

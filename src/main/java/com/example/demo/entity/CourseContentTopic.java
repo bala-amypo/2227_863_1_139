@@ -27,16 +27,34 @@ public class CourseContentTopic {
         this.weightPercentage = weightPercentage;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Course getCourse() { return course; }
-    public void setCourse(Course course) { this.course = course; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getTopicName() { return topicName; }
-    public void setTopicName(String topicName) { this.topicName = topicName; }
+    public Course getCourse() {
+        return course;
+    }
 
-    public Double getWeightPercentage() { return weightPercentage; }
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public String getTopicName() {
+        return topicName;
+    }
+
+    public void setTopicName(String topicName) {
+        this.topicName = topicName;
+    }
+
+    public Double getWeightPercentage() {
+        return weightPercentage;
+    }
+
     public void setWeightPercentage(Double weightPercentage) {
         this.weightPercentage = weightPercentage;
     }
