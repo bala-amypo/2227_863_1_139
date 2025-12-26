@@ -13,7 +13,8 @@ import java.util.List;
 
 @Service
 public class ProgramServiceImpl implements ProgramService {
-
+    
+    @Autowired
     private ProgramRepository programRepository;
     private UniversityRepository universityRepository;
 
