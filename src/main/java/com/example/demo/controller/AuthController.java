@@ -2,14 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.service.AuthService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Authentication")
 public class AuthController {
 
     private final AuthService authService;
@@ -18,9 +17,13 @@ public class AuthController {
         this.authService = authService;
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authService.register(request));
+    }
+
     @PostMapping("/login")
-    @Operation(summary = "Login and generate JWT token")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-        return authService.login(request);
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }
