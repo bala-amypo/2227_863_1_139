@@ -10,7 +10,10 @@ import java.util.List;
 @Service
 public class UniversityServiceImpl implements UniversityService {
 
-    private final UniversityRepository repository;
+    private UniversityRepository repository;
+
+    public UniversityServiceImpl() {
+    }
 
     public UniversityServiceImpl(UniversityRepository repository) {
         this.repository = repository;
