@@ -1,18 +1,22 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.entity.*;
-import com.example.demo.repository.*;
-import com.example.demo.service.TransferEvaluationService;
-import org.springframework.stereotype.Service;
-import java.util.List;
-
 @Service
 public class TransferEvaluationServiceImpl implements TransferEvaluationService {
 
-    CourseRepository courseRepo;
-    CourseContentTopicRepository topicRepo;
-    TransferRuleRepository ruleRepo;
-    TransferEvaluationResultRepository resultRepo;
+    private final CourseRepository courseRepo;
+    private final CourseContentTopicRepository topicRepo;
+    private final TransferRuleRepository ruleRepo;
+    private final TransferEvaluationResultRepository resultRepo;
+
+    public TransferEvaluationServiceImpl(
+            CourseRepository courseRepo,
+            CourseContentTopicRepository topicRepo,
+            TransferRuleRepository ruleRepo,
+            TransferEvaluationResultRepository resultRepo
+    ) {
+        this.courseRepo = courseRepo;
+        this.topicRepo = topicRepo;
+        this.ruleRepo = ruleRepo;
+        this.resultRepo = resultRepo;
+    }
 
     @Override
     public TransferEvaluationResult evaluateTransfer(Long sourceCourseId, Long targetCourseId) {
@@ -41,7 +45,8 @@ public class TransferEvaluationServiceImpl implements TransferEvaluationService 
                 if (s.getTopicName().equalsIgnoreCase(t.getTopicName())) {
                     matched += Math.min(
                             s.getWeightPercentage() == null ? 0 : s.getWeightPercentage(),
-                            t.getWeightPercentage() == null ? 0 : t.getWeightPercentage());
+                            t.getWeightPercentage() == null ? 0 : t.getWeightPercentage()
+                    );
                 }
             }
         }
@@ -49,26 +54,25 @@ public class TransferEvaluationServiceImpl implements TransferEvaluationService 
         double overlap = (matched / total) * 100;
         int creditDiff = Math.abs(src.getCreditHours() - tgt.getCreditHours());
 
-        List<TransferRule> rules = ruleRepo
-                .findBySourceUniversityIdAndTargetUniversityIdAndActiveTrue(
+        List<TransferRule> rules =
+                ruleRepo.findBySourceUniversityIdAndTargetUniversityIdAndActiveTrue(
                         src.getUniversity().getId(),
-                        tgt.getUniversity().getId());
+                        tgt.getUniversity().getId()
+                );
 
-        boolean eligible = false;
-        for (TransferRule r : rules) {
-            if (overlap >= r.getMinimumOverlapPercentage()
-                    && creditDiff <= (r.getCreditHourTolerance() == null ? 0 : r.getCreditHourTolerance())) {
-                eligible = true;
-                break;
-            }
-        }
+        boolean eligible = rules.stream().anyMatch(r ->
+                overlap >= r.getMinimumOverlapPercentage()
+                        && creditDiff <= (r.getCreditHourTolerance() == null ? 0 : r.getCreditHourTolerance())
+        );
 
         TransferEvaluationResult res = new TransferEvaluationResult();
         res.setOverlapPercentage(overlap);
         res.setCreditHourDifference(creditDiff);
         res.setIsEligibleForTransfer(eligible);
-        res.setNotes(eligible ? "Eligible" :
-                rules.isEmpty() ? "No active transfer rule" : "No active rule satisfied");
+        res.setNotes(
+                eligible ? "Eligible" :
+                        rules.isEmpty() ? "No active transfer rule" : "No active rule satisfied"
+        );
 
         return resultRepo.save(res);
     }

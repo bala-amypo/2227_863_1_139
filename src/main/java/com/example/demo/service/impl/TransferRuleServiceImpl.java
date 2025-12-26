@@ -1,17 +1,16 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.entity.TransferRule;
-import com.example.demo.repository.TransferRuleRepository;
-import com.example.demo.repository.UniversityRepository;
-import com.example.demo.service.TransferRuleService;
-import org.springframework.stereotype.Service;
-import java.util.List;
-
 @Service
 public class TransferRuleServiceImpl implements TransferRuleService {
 
-    TransferRuleRepository repo;
-    UniversityRepository univRepo;
+    private final TransferRuleRepository repo;
+    private final UniversityRepository univRepo;
+
+    public TransferRuleServiceImpl(
+            TransferRuleRepository repo,
+            UniversityRepository univRepo
+    ) {
+        this.repo = repo;
+        this.univRepo = univRepo;
+    }
 
     @Override
     public TransferRule createRule(TransferRule rule) {

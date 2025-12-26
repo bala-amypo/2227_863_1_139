@@ -1,18 +1,16 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.entity.Course;
-import com.example.demo.entity.University;
-import com.example.demo.repository.CourseRepository;
-import com.example.demo.repository.UniversityRepository;
-import com.example.demo.service.CourseService;
-import org.springframework.stereotype.Service;
-import java.util.List;
-
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    CourseRepository repo;
-    UniversityRepository univRepo;
+    private final CourseRepository repo;
+    private final UniversityRepository univRepo;
+
+    public CourseServiceImpl(
+            CourseRepository repo,
+            UniversityRepository univRepo
+    ) {
+        this.repo = repo;
+        this.univRepo = univRepo;
+    }
 
     @Override
     public Course createCourse(Course course) {
@@ -24,8 +22,11 @@ public class CourseServiceImpl implements CourseService {
                 .orElseThrow(() -> new RuntimeException("University not found"));
 
         repo.findByUniversityIdAndCourseCode(u.getId(), course.getCourseCode())
-                .ifPresent(c -> { throw new IllegalArgumentException("Duplicate course"); });
+                .ifPresent(c -> {
+                    throw new IllegalArgumentException("Duplicate course");
+                });
 
+        course.setUniversity(u);
         return repo.save(course);
     }
 

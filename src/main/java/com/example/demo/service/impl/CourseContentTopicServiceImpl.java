@@ -1,18 +1,16 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.entity.Course;
-import com.example.demo.entity.CourseContentTopic;
-import com.example.demo.repository.CourseContentTopicRepository;
-import com.example.demo.repository.CourseRepository;
-import com.example.demo.service.CourseContentTopicService;
-import org.springframework.stereotype.Service;
-import java.util.List;
-
 @Service
 public class CourseContentTopicServiceImpl implements CourseContentTopicService {
 
-    CourseContentTopicRepository repo;
-    CourseRepository courseRepo;
+    private final CourseContentTopicRepository repo;
+    private final CourseRepository courseRepo;
+
+    public CourseContentTopicServiceImpl(
+            CourseContentTopicRepository repo,
+            CourseRepository courseRepo
+    ) {
+        this.repo = repo;
+        this.courseRepo = courseRepo;
+    }
 
     @Override
     public CourseContentTopic createTopic(CourseContentTopic topic) {
@@ -23,8 +21,10 @@ public class CourseContentTopicServiceImpl implements CourseContentTopicService 
                 (topic.getWeightPercentage() < 0 || topic.getWeightPercentage() > 100)) {
             throw new IllegalArgumentException("Weight must be 0-100");
         }
-        Course c = courseRepo.findById(topic.getCourse().getId())
+
+        courseRepo.findById(topic.getCourse().getId())
                 .orElseThrow(() -> new RuntimeException("Course not found"));
+
         return repo.save(topic);
     }
 
