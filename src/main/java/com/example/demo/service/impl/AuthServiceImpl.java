@@ -16,9 +16,12 @@ import java.util.Set;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository userRepo;
-    private final JwtTokenProvider jwtTokenProvider;
+    private UserRepository userRepo;
+    private JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public AuthServiceImpl() {
+    }
 
     public AuthServiceImpl(UserRepository userRepo,
                            JwtTokenProvider jwtTokenProvider) {

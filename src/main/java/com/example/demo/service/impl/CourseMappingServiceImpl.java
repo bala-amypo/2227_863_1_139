@@ -8,17 +8,22 @@ import com.example.demo.repository.CourseMappingRepository;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.service.CourseMappingService;
 import org.springframework.stereotype.Service;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CourseMappingServiceImpl implements CourseMappingService {
 
-    private final CourseMappingRepository courseMappingRepository;
-    private final CourseRepository courseRepository;
+    private CourseMappingRepository courseMappingRepository;
+    private CourseRepository courseRepository;
 
-    public CourseMappingServiceImpl(CourseMappingRepository courseMappingRepository,CourseRepository courseRepository) {
+    public CourseMappingServiceImpl() {
+    }
+
+    public CourseMappingServiceImpl(
+            CourseMappingRepository courseMappingRepository,
+            CourseRepository courseRepository
+    ) {
         this.courseMappingRepository = courseMappingRepository;
         this.courseRepository = courseRepository;
     }
@@ -29,12 +34,13 @@ public class CourseMappingServiceImpl implements CourseMappingService {
         Long sourceId = mapping.getSourceCourse().getId();
         Long targetId = mapping.getTargetCourse().getId();
 
-        Course sourceCourse = courseRepository.findById(sourceId).orElseThrow(() ->new ResourceNotFoundException("Source course not found"));
+        Course sourceCourse = courseRepository.findById(sourceId)
+                .orElseThrow(() -> new ResourceNotFoundException("Source course not found"));
 
-        Course targetCourse = courseRepository.findById(targetId).orElseThrow(() -> new ResourceNotFoundException("Target course not found"));
+        Course targetCourse = courseRepository.findById(targetId)
+                .orElseThrow(() -> new ResourceNotFoundException("Target course not found"));
 
         if (courseMappingRepository.existsBySourceCourseIdAndTargetCourseId(sourceId, targetId)) {
-
             throw new ValidationException("Course mapping already exists");
         }
 

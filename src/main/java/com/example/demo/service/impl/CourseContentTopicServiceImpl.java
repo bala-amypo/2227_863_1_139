@@ -12,8 +12,11 @@ import java.util.List;
 @Service
 public class CourseContentTopicServiceImpl implements CourseContentTopicService {
 
-    private final CourseContentTopicRepository repo;
-    private final CourseRepository courseRepo;
+    private CourseContentTopicRepository repo;
+    private CourseRepository courseRepo;
+
+    public CourseContentTopicServiceImpl() {
+    }
 
     public CourseContentTopicServiceImpl(
             CourseContentTopicRepository repo,
