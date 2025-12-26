@@ -8,7 +8,7 @@ import com.example.demo.repository.CourseMappingRepository;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.service.CourseMappingService;
 import org.springframework.stereotype.Service;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Service
