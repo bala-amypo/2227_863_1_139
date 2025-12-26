@@ -12,7 +12,6 @@ public class UniversityServiceImpl implements UniversityService {
 
     UniversityRepository repository;
 
-    
     public UniversityServiceImpl(UniversityRepository repository) {
         this.repository = repository;
     }
