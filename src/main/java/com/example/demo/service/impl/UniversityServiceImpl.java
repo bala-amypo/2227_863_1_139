@@ -5,6 +5,8 @@ import com.example.demo.repository.UniversityRepository;
 import com.example.demo.service.UniversityService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UniversityServiceImpl implements UniversityService {
 
@@ -54,5 +56,10 @@ public class UniversityServiceImpl implements UniversityService {
                 .orElseThrow(() -> new RuntimeException("University not found"));
         u.setActive(false);
         repository.save(u);
+    }
+
+    @Override
+    public List<University> getAllUniversities() {
+        return repository.findAll();
     }
 }
