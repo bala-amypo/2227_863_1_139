@@ -9,20 +9,20 @@ import com.example.demo.repository.CourseRepository;
 import com.example.demo.service.CourseMappingService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 @Service
 public class CourseMappingServiceImpl implements CourseMappingService {
-    
 
     @Autowired
-    private CourseMappingRepository courseMappingRepository;
+    CourseMappingRepository courseMappingRepository;
+
     @Autowired
-    private CourseRepository courseRepository;
+    CourseRepository courseRepository;
 
     public CourseMappingServiceImpl() {
     }
-
 
     @Override
     public CourseMapping createMapping(CourseMapping mapping) {
