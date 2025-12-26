@@ -13,7 +13,7 @@ public class AuthResponse {
         this.token = token;
         this.email = email;
         this.role = role;
-    }
+    } 
 
     public String getToken() {
         return token;
