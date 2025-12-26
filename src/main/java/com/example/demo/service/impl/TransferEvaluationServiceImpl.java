@@ -1,3 +1,18 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.entity.Course;
+import com.example.demo.entity.CourseContentTopic;
+import com.example.demo.entity.TransferEvaluationResult;
+import com.example.demo.entity.TransferRule;
+import com.example.demo.repository.CourseContentTopicRepository;
+import com.example.demo.repository.CourseRepository;
+import com.example.demo.repository.TransferEvaluationResultRepository;
+import com.example.demo.repository.TransferRuleRepository;
+import com.example.demo.service.TransferEvaluationService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class TransferEvaluationServiceImpl implements TransferEvaluationService {
 
@@ -23,6 +38,7 @@ public class TransferEvaluationServiceImpl implements TransferEvaluationService 
 
         Course src = courseRepo.findById(sourceCourseId)
                 .orElseThrow(() -> new RuntimeException("Source course not found"));
+
         Course tgt = courseRepo.findById(targetCourseId)
                 .orElseThrow(() -> new RuntimeException("Target course not found"));
 
@@ -60,10 +76,14 @@ public class TransferEvaluationServiceImpl implements TransferEvaluationService 
                         tgt.getUniversity().getId()
                 );
 
-        boolean eligible = rules.stream().anyMatch(r ->
-                overlap >= r.getMinimumOverlapPercentage()
-                        && creditDiff <= (r.getCreditHourTolerance() == null ? 0 : r.getCreditHourTolerance())
-        );
+        boolean eligible = false;
+        for (TransferRule r : rules) {
+            if (overlap >= r.getMinimumOverlapPercentage()
+                    && creditDiff <= (r.getCreditHourTolerance() == null ? 0 : r.getCreditHourTolerance())) {
+                eligible = true;
+                break;
+            }
+        }
 
         TransferEvaluationResult res = new TransferEvaluationResult();
         res.setOverlapPercentage(overlap);
