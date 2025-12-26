@@ -1,3 +1,14 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.entity.Course;
+import com.example.demo.entity.CourseContentTopic;
+import com.example.demo.repository.CourseContentTopicRepository;
+import com.example.demo.repository.CourseRepository;
+import com.example.demo.service.CourseContentTopicService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class CourseContentTopicServiceImpl implements CourseContentTopicService {
 
@@ -14,17 +25,20 @@ public class CourseContentTopicServiceImpl implements CourseContentTopicService 
 
     @Override
     public CourseContentTopic createTopic(CourseContentTopic topic) {
+
         if (topic.getTopicName() == null || topic.getTopicName().isBlank()) {
             throw new IllegalArgumentException("Topic name required");
         }
+
         if (topic.getWeightPercentage() != null &&
                 (topic.getWeightPercentage() < 0 || topic.getWeightPercentage() > 100)) {
             throw new IllegalArgumentException("Weight must be 0-100");
         }
 
-        courseRepo.findById(topic.getCourse().getId())
+        Course c = courseRepo.findById(topic.getCourse().getId())
                 .orElseThrow(() -> new RuntimeException("Course not found"));
 
+        topic.setCourse(c);
         return repo.save(topic);
     }
 
@@ -43,8 +57,10 @@ public class CourseContentTopicServiceImpl implements CourseContentTopicService 
 
     @Override
     public List<CourseContentTopic> getTopicsForCourse(Long courseId) {
+
         courseRepo.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
+
         return repo.findByCourseId(courseId);
     }
 }

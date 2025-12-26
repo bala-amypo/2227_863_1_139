@@ -1,3 +1,14 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.entity.Course;
+import com.example.demo.entity.University;
+import com.example.demo.repository.CourseRepository;
+import com.example.demo.repository.UniversityRepository;
+import com.example.demo.service.CourseService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class CourseServiceImpl implements CourseService {
 
@@ -14,6 +25,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course createCourse(Course course) {
+
         if (course.getCreditHours() == null || course.getCreditHours() <= 0) {
             throw new IllegalArgumentException("Credit hours must be > 0");
         }
