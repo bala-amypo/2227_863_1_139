@@ -16,28 +16,23 @@ import java.util.Set;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private UserRepository userRepo;
-    private JwtTokenProvider jwtTokenProvider;
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final UserRepository userRepo;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final BCryptPasswordEncoder encoder;
 
-    public AuthServiceImpl() {
-    }
-
-    public AuthServiceImpl(UserRepository userRepo,
-                           JwtTokenProvider jwtTokenProvider) {
+    public AuthServiceImpl(
+            UserRepository userRepo,
+            JwtTokenProvider jwtTokenProvider
+    ) {
         this.userRepo = userRepo;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.encoder = new BCryptPasswordEncoder();
     }
 
     @Override
     public String register(RegisterRequest request) {
 
-        Role role;
-        try {
-            role = Role.valueOf(request.getRole().toUpperCase());
-        } catch (Exception e) {
-            throw new RuntimeException("Invalid role");
-        }
+        Role role = Role.valueOf(request.getRole().toUpperCase());
 
         if (userRepo.findByEmail(request.getEmail()).isPresent()) {
             throw new RuntimeException("Email already registered");
@@ -49,7 +44,6 @@ public class AuthServiceImpl implements AuthService {
         user.setRoles(Set.of("ROLE_" + role.name()));
 
         userRepo.save(user);
-
         return "User registered successfully";
     }
 
