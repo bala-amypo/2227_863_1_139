@@ -10,3 +10,4 @@ public interface AuthService {
 
     AuthResponse login(AuthRequest request);
 }
+    
