@@ -11,18 +11,10 @@ import java.util.List;
 @Service
 public class TransferRuleServiceImpl implements TransferRuleService {
 
-    private TransferRuleRepository repo;
-    private UniversityRepository univRepo;
+    TransferRuleRepository repo;
+    UniversityRepository univRepo;
 
     public TransferRuleServiceImpl() {
-    }
-
-    public TransferRuleServiceImpl(
-            TransferRuleRepository repo,
-            UniversityRepository univRepo
-    ) {
-        this.repo = repo;
-        this.univRepo = univRepo;
     }
 
     @Override

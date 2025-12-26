@@ -12,18 +12,10 @@ import java.util.List;
 @Service
 public class CourseContentTopicServiceImpl implements CourseContentTopicService {
 
-    private CourseContentTopicRepository repo;
-    private CourseRepository courseRepo;
+    CourseContentTopicRepository repo;
+    CourseRepository courseRepo;
 
     public CourseContentTopicServiceImpl() {
-    }
-
-    public CourseContentTopicServiceImpl(
-            CourseContentTopicRepository repo,
-            CourseRepository courseRepo
-    ) {
-        this.repo = repo;
-        this.courseRepo = courseRepo;
     }
 
     @Override
@@ -60,10 +52,8 @@ public class CourseContentTopicServiceImpl implements CourseContentTopicService 
 
     @Override
     public List<CourseContentTopic> getTopicsForCourse(Long courseId) {
-
         courseRepo.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found"));
-
         return repo.findByCourseId(courseId);
     }
 }

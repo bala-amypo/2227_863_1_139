@@ -12,18 +12,10 @@ import java.util.List;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    private CourseRepository repo;
-    private UniversityRepository univRepo;
+    CourseRepository repo;
+    UniversityRepository univRepo;
 
     public CourseServiceImpl() {
-    }
-
-    public CourseServiceImpl(
-            CourseRepository repo,
-            UniversityRepository univRepo
-    ) {
-        this.repo = repo;
-        this.univRepo = univRepo;
     }
 
     @Override
@@ -37,9 +29,7 @@ public class CourseServiceImpl implements CourseService {
                 .orElseThrow(() -> new RuntimeException("University not found"));
 
         repo.findByUniversityIdAndCourseCode(u.getId(), course.getCourseCode())
-                .ifPresent(c -> {
-                    throw new IllegalArgumentException("Duplicate course");
-                });
+                .ifPresent(c -> { throw new IllegalArgumentException("Duplicate course"); });
 
         course.setUniversity(u);
         return repo.save(course);
