@@ -12,12 +12,7 @@ public class UniversityServiceImpl implements UniversityService {
 
     UniversityRepository repository;
 
-    // ✅ REQUIRED for TestNG (reflection)
-    public UniversityServiceImpl() {
-    }
-
-    // ✅ REQUIRED for Spring (Swagger / runtime)
-    @Autowired
+    
     public UniversityServiceImpl(UniversityRepository repository) {
         this.repository = repository;
     }
