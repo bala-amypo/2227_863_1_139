@@ -12,7 +12,13 @@ public class UniversityServiceImpl implements UniversityService {
 
     UniversityRepository repository;
 
+    // ✅ REQUIRED for TestNG (reflection)
     public UniversityServiceImpl() {
+    }
+
+    // ✅ REQUIRED for Spring (Swagger / runtime)
+    public UniversityServiceImpl(UniversityRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -22,7 +28,9 @@ public class UniversityServiceImpl implements UniversityService {
         }
 
         repository.findByName(university.getName())
-                .ifPresent(u -> { throw new IllegalArgumentException("University already exists"); });
+                .ifPresent(u -> {
+                    throw new IllegalArgumentException("University already exists");
+                });
 
         return repository.save(university);
     }
