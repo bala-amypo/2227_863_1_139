@@ -4,7 +4,7 @@ import com.example.demo.entity.University;
 import com.example.demo.repository.UniversityRepository;
 import com.example.demo.service.UniversityService;
 import org.springframework.stereotype.Service;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Service
@@ -17,6 +17,7 @@ public class UniversityServiceImpl implements UniversityService {
     }
 
     // ✅ REQUIRED for Spring (Swagger / runtime)
+    @Autowired
     public UniversityServiceImpl(UniversityRepository repository) {
         this.repository = repository;
     }
