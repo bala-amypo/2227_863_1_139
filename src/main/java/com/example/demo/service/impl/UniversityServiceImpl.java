@@ -10,10 +10,10 @@ import java.util.List;
 @Service
 public class UniversityServiceImpl implements UniversityService {
 
+    @Autowired
     UniversityRepository repository;
 
-    public UniversityServiceImpl(UniversityRepository repository) {
-        this.repository = repository;
+    public UniversityServiceImpl(){
     }
 
     @Override
