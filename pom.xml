@@ -45,7 +45,6 @@
     <scope>runtime</scope>
 </dependency>
 
-<!-- JWT Jackson support -->
 <dependency>
     <groupId>io.jsonwebtoken</groupId>
     <artifactId>jjwt-jackson</artifactId>
