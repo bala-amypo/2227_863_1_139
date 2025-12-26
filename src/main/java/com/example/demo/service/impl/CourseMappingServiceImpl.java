@@ -20,13 +20,6 @@ public class CourseMappingServiceImpl implements CourseMappingService {
     public CourseMappingServiceImpl() {
     }
 
-    public CourseMappingServiceImpl(
-            CourseMappingRepository courseMappingRepository,
-            CourseRepository courseRepository
-    ) {
-        this.courseMappingRepository = courseMappingRepository;
-        this.courseRepository = courseRepository;
-    }
 
     @Override
     public CourseMapping createMapping(CourseMapping mapping) {

@@ -21,13 +21,6 @@ public class ProgramServiceImpl implements ProgramService {
     public ProgramServiceImpl() {
     }
 
-    public ProgramServiceImpl(
-            ProgramRepository programRepository,
-            UniversityRepository universityRepository
-    ) {
-        this.programRepository = programRepository;
-        this.universityRepository = universityRepository;
-    }
 
     @Override
     public Program createProgram(Program program) {
