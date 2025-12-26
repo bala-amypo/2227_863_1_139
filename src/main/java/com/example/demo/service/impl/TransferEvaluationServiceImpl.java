@@ -1,21 +1,31 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.*;
-import com.example.demo.repository.*;
+import com.example.demo.entity.Course;
+import com.example.demo.entity.CourseContentTopic;
+import com.example.demo.entity.TransferEvaluationResult;
+import com.example.demo.entity.TransferRule;
+import com.example.demo.repository.CourseContentTopicRepository;
+import com.example.demo.repository.CourseRepository;
+import com.example.demo.repository.TransferEvaluationResultRepository;
+import com.example.demo.repository.TransferRuleRepository;
 import com.example.demo.service.TransferEvaluationService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 @Service
 public class TransferEvaluationServiceImpl implements TransferEvaluationService {
-    
+
     @Autowired
     CourseRepository courseRepo;
+
     @Autowired
     CourseContentTopicRepository topicRepo;
+
     @Autowired
     TransferRuleRepository ruleRepo;
+
     @Autowired
     TransferEvaluationResultRepository resultRepo;
 
@@ -43,7 +53,9 @@ public class TransferEvaluationServiceImpl implements TransferEvaluationService 
                 .mapToDouble(t -> t.getWeightPercentage() == null ? 0 : t.getWeightPercentage())
                 .sum();
 
-        if (total == 0) total = 100;
+        if (total == 0) {
+            total = 100;
+        }
 
         for (CourseContentTopic s : srcTopics) {
             for (CourseContentTopic t : tgtTopics) {
@@ -79,8 +91,8 @@ public class TransferEvaluationServiceImpl implements TransferEvaluationService 
         res.setCreditHourDifference(creditDiff);
         res.setIsEligibleForTransfer(eligible);
         res.setNotes(
-                eligible ? "Eligible" :
-                        rules.isEmpty() ? "No active transfer rule" : "No active rule satisfied"
+                eligible ? "Eligible"
+                        : rules.isEmpty() ? "No active transfer rule" : "No active rule satisfied"
         );
 
         return resultRepo.save(res);

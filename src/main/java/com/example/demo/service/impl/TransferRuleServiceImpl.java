@@ -11,9 +11,10 @@ import java.util.List;
 
 @Service
 public class TransferRuleServiceImpl implements TransferRuleService {
-    
+
     @Autowired
     TransferRuleRepository repo;
+
     @Autowired
     UniversityRepository univRepo;
 
