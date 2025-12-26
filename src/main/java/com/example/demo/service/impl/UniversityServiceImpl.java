@@ -10,10 +10,7 @@ import java.util.List;
 @Service
 public class UniversityServiceImpl implements UniversityService {
 
-    private UniversityRepository repository;
-
-    public UniversityServiceImpl() {
-    }
+    private final UniversityRepository repository;
 
     public UniversityServiceImpl(UniversityRepository repository) {
         this.repository = repository;
@@ -21,28 +18,18 @@ public class UniversityServiceImpl implements UniversityService {
 
     @Override
     public University createUniversity(University university) {
-
-        if (university.getName() == null || university.getName().isBlank()) {
-            throw new IllegalArgumentException("Name required");
-        }
-
-        repository.findByName(university.getName())
-                .ifPresent(u -> {
-                    throw new IllegalArgumentException("University already exists");
-                });
-
         return repository.save(university);
     }
 
     @Override
     public University updateUniversity(Long id, University updated) {
-
         University existing = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("University not found"));
 
         existing.setName(updated.getName());
         existing.setCountry(updated.getCountry());
         existing.setAccreditationLevel(updated.getAccreditationLevel());
+        existing.setActive(updated.getActive());
 
         return repository.save(existing);
     }

@@ -7,7 +7,7 @@ public interface UniversityService {
 
     University createUniversity(University university);
 
-    University updateUniversity(Long id, University university);
+    University updateUniversity(Long id, University updated);
 
     University getUniversityById(Long id);
 
