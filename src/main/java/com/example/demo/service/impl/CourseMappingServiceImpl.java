@@ -13,8 +13,11 @@ import java.util.List;
 
 @Service
 public class CourseMappingServiceImpl implements CourseMappingService {
+    
 
+    @Autowired
     private CourseMappingRepository courseMappingRepository;
+    @Autowired
     private CourseRepository courseRepository;
 
     public CourseMappingServiceImpl() {

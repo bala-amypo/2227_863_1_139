@@ -16,6 +16,7 @@ public class ProgramServiceImpl implements ProgramService {
     
     @Autowired
     private ProgramRepository programRepository;
+    @Autowired
     private UniversityRepository universityRepository;
 
     public ProgramServiceImpl() {

@@ -14,6 +14,7 @@ public class CourseServiceImpl implements CourseService {
     
     @Autowired
     CourseRepository repo;
+    @Autowired
     UniversityRepository univRepo;
 
     public CourseServiceImpl() {
