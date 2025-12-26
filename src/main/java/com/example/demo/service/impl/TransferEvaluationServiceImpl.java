@@ -16,10 +16,13 @@ import java.util.List;
 @Service
 public class TransferEvaluationServiceImpl implements TransferEvaluationService {
 
-    private final CourseRepository courseRepo;
-    private final CourseContentTopicRepository topicRepo;
-    private final TransferRuleRepository ruleRepo;
-    private final TransferEvaluationResultRepository resultRepo;
+    private CourseRepository courseRepo;
+    private CourseContentTopicRepository topicRepo;
+    private TransferRuleRepository ruleRepo;
+    private TransferEvaluationResultRepository resultRepo;
+
+    public TransferEvaluationServiceImpl() {
+    }
 
     public TransferEvaluationServiceImpl(
             CourseRepository courseRepo,

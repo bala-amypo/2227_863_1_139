@@ -12,8 +12,11 @@ import java.util.List;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    private final CourseRepository repo;
-    private final UniversityRepository univRepo;
+    private CourseRepository repo;
+    private UniversityRepository univRepo;
+
+    public CourseServiceImpl() {
+    }
 
     public CourseServiceImpl(
             CourseRepository repo,
