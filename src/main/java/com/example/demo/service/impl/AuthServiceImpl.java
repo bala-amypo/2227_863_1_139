@@ -2,20 +2,45 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.AuthService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.Set;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    UserRepository userRepo;
-    JwtTokenProvider jwtTokenProvider;
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final UserRepository userRepo;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public AuthServiceImpl(UserRepository userRepo,
+                           JwtTokenProvider jwtTokenProvider) {
+        this.userRepo = userRepo;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @Override
+    public String register(RegisterRequest request) {
+
+        if (userRepo.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already registered");
+        }
+
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setPassword(encoder.encode(request.getPassword()));
+        user.setRoles(Set.of(request.getRole()));
+
+        userRepo.save(user);
+
+        return "User registered successfully";
+    }
 
     @Override
     public AuthResponse login(AuthRequest request) {
@@ -33,6 +58,10 @@ public class AuthServiceImpl implements AuthService {
                 user.getRoles()
         );
 
-        return new AuthResponse(token, user.getEmail(), user.getRoles().iterator().next());
+        return new AuthResponse(
+                token,
+                user.getEmail(),
+                user.getRoles().iterator().next()
+        );
     }
 }
