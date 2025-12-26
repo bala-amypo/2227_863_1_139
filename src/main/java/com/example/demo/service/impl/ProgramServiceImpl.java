@@ -9,19 +9,20 @@ import com.example.demo.repository.UniversityRepository;
 import com.example.demo.service.ProgramService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 @Service
 public class ProgramServiceImpl implements ProgramService {
-    
+
     @Autowired
-    private ProgramRepository programRepository;
+    ProgramRepository programRepository;
+
     @Autowired
-    private UniversityRepository universityRepository;
+    UniversityRepository universityRepository;
 
     public ProgramServiceImpl() {
     }
-
 
     @Override
     public Program createProgram(Program program) {

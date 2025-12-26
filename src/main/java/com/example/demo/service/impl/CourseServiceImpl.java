@@ -7,13 +7,15 @@ import com.example.demo.repository.UniversityRepository;
 import com.example.demo.service.CourseService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 @Service
 public class CourseServiceImpl implements CourseService {
-    
+
     @Autowired
     CourseRepository repo;
+
     @Autowired
     UniversityRepository univRepo;
 
