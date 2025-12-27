@@ -6,18 +6,19 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.*;
 
 @Component
 public class JwtTokenProvider {
 
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long validityInMs = 60 * 60 * 1000;
+    private static final String SECRET ="wihlglksgnoierljgebb23533_SECURE_KEY_2025";
+
+    private final Key key =
+            Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+
+    private final long validityInMs = 60 * 60 * 1000; // 1 hour
 
     public String createToken(Long userId, String email, Set<String> roles) {
 
@@ -32,7 +33,7 @@ public class JwtTokenProvider {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiry)
-                .signWith(key)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -56,7 +57,6 @@ public class JwtTokenProvider {
         return getClaims(token).get("userId", Long.class);
     }
 
-    
     public Set<String> getRoles(String token) {
         Object roles = getClaims(token).get("roles");
         Set<String> result = new HashSet<>();
@@ -66,7 +66,6 @@ public class JwtTokenProvider {
                 result.add(String.valueOf(r));
             }
         }
-
         return result;
     }
 
