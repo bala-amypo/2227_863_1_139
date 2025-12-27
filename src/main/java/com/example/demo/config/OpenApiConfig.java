@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class OpenApiConfig {w
+public class OpenApiConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
